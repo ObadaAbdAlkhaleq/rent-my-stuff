@@ -1,11 +1,13 @@
 'use client';
 
-import useRegisterModal from "../hooks/useRegisterModal";
+import useRegisterModal from "../../hooks/useRegisterModal";
+import useLoginModal from "../../hooks/useLoginModal";
+
 import axios from "axios";
-import Modal from "./Modals/Modal";
-import Heading from "./Heading";
-import Input from "./Inputs/Input";
-import Button from "./Button";
+import Modal from "./Modal";
+import Heading from "../Heading";
+import Input from "../Inputs/Input";
+import Button from "../Button";
 
 import { useState } from "react";
 import { toast } from "react-hot-toast";
@@ -15,6 +17,8 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
+
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
@@ -103,7 +107,7 @@ const RegisterModal = () => {
       <div className="text-neutral-500 text-center mt-4 font-light ">
         <div className="justify-center flex flex-row items-center gap-2">
           <div>Already have an account?</div>
-          <div onClick={registerModal.onClose} className="text-neutral-950 cursor-pointer hover:underline">Login</div>
+          <div onClick={loginModal.onOpen} className="text-neutral-950 cursor-pointer hover:underline">Login</div>
         </div>
       </div>
     </div>

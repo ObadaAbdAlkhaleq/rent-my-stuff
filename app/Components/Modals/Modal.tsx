@@ -2,6 +2,7 @@
 
 import Button from "../Button";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
+import useLoginModal from "@/app/hooks/useLoginModal";
 
 import { useCallback, useEffect, useState,  } from "react";
 import { IoMdClose } from "react-icons/io";
@@ -23,6 +24,7 @@ const Modal: React.FC<ModalProps> = ({
   isOpen, onClose, onSubmit, title, body, footer, actionLabel, secondaryAction, disabled, secondaryActionLabel
 }) => {
   const registerModal = useRegisterModal();
+  const loginModal = useLoginModal();
 
   const [showModal, setShowModal] = useState(isOpen);
   
@@ -78,7 +80,7 @@ const Modal: React.FC<ModalProps> = ({
                 className="flex items-center p-5 rounded-t justify-center relative border-b-[1px]">
                 <button
                   className="p-1 border-0 hover:opacity-70 transition absolute left-9"
-                  onClick={registerModal.onClose}
+                  onClick={handleClose}
                 >
                   <IoMdClose size={16}/>
                 </button>
