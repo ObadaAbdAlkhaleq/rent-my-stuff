@@ -10,6 +10,7 @@ import Input from "../Inputs/Input";
 import Button from "../Button";
 
 import { useState } from "react";
+import { signIn } from "next-auth/react";
 import { toast } from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 import { BsFacebook } from "react-icons/bs";
@@ -93,13 +94,13 @@ const RegisterModal = () => {
         <div className="flex-grow border-t "></div>
       </div>
       <Button 
-        onClick={() => {}}
+        onClick={() => signIn("facebook")}
         outline
         label="Sign up using Facebook"
         icon={BsFacebook}
         />
       <Button 
-        onClick={() => {}}
+        onClick={() => signIn('google')}
         outline
         label="Continue with Google"
         icon={FcGoogle}
