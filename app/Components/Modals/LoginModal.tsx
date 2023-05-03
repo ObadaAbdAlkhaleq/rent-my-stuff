@@ -3,14 +3,13 @@
 import useLoginModal from "../../hooks/useLoginModal";
 import useRegisterModal from "../../hooks/useRegisterModal";
 
-import axios from "axios";
 import Modal from "./Modal";
 import Heading from "../Heading";
 import Input from "../Inputs/Input";
 import Button from "../Button";
 
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 import { BsFacebook } from "react-icons/bs";
@@ -83,6 +82,11 @@ const LoginModal = () => {
     </div>
   );
 
+  const switcher = useCallback(() => {
+    loginModal.onClose();
+    registerModal.onOpen();
+  }, [loginModal, registerModal]);
+
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
       {/* <br /> */}
@@ -106,7 +110,7 @@ const LoginModal = () => {
       <div className="text-neutral-500 text-center mt-4 font-light ">
         <div className="justify-center flex flex-row items-center gap-2">
           <div>Don't have an account?</div>
-          <div onClick={registerModal.onOpen} className="text-neutral-950 cursor-pointer hover:underline">Sign up</div>
+          <div onClick={switcher} className="text-neutral-950 cursor-pointer hover:underline">Sign up</div>
         </div>
       </div>
     </div>
