@@ -8,6 +8,8 @@ import { catagories } from "../navbar/Catagories";
 import CategoryBox from "../navbar/CategoryBox";
 import CategoryInput from "../Inputs/CategoryInput";
 import { FieldValues, useForm } from "react-hook-form";
+import AreaSelect from "../Inputs/AreaSelect";
+import dynamic from "next/dynamic";
 
   enum STEPS {
     CATEGORY = 0,
@@ -36,6 +38,12 @@ const RentModal = () => {
   });
 
   const category = watch('category');
+  const location = watch('location');
+
+  const Map = useMemo(() => dynamic(() => import('../Map'), {
+    ssr: false
+  }), [location]);
+
   const setCustomValue = (id: string, value:any) => {
     setValue(id, value, {
       shouldValidate: true,
@@ -91,12 +99,30 @@ const RentModal = () => {
     </div>
   )
 
+  if (step === STEPS.LOCATION) {
+    bodyContent = (
+      <div className="">
+        <Heading
+          title="Where is your item located?"
+          subtitle="let others know where can they find your item?"
+        />
+        <AreaSelect
+        value={location}
+          onChange={(value) => setCustomValue('location', value)}
+        />
+        <Map 
+          center={location?.latlng}
+        />
+      </div>
+    )
+  }
+
   return (
     <Modal
       title="Rent Your Stuff"
       isOpen={rentModal.isOpen}
       onClose={rentModal.onClose}
-      onSubmit={rentModal.onClose}
+      onSubmit={onNext}
       actionLabel={actionLabel}
       secondaryAction={step === STEPS.CATEGORY ? undefined : onPrev}
       secondaryActionLabel={secondaryActionLabel}
