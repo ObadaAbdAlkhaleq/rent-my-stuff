@@ -13,6 +13,7 @@ import dynamic from "next/dynamic";
 import DropDown from "../Inputs/DropDown";
 import Input from "../Inputs/Input";
 import TextFieldInput from "../Inputs/TextFieldInput";
+import ImageUpload from "../Inputs/ImageUpload";
 
 enum STEPS {
   CATEGORY = 0,
@@ -45,6 +46,7 @@ const RentModal = () => {
   const category = watch('category');
   const location = watch('location');
   const condition = watch('condition');
+  const imageSrc = watch('imageSrc');
 
   const Map = useMemo(() => dynamic(() => import('../Map'), {
     ssr: false
@@ -183,6 +185,21 @@ const RentModal = () => {
   }
 
   // console.log(condition);
+
+  if (step === STEPS.IMAGES) {
+    bodyContent = (
+      <div className="flex flex-col gap-4">
+        <Heading
+          title="Add photos of your item"
+          subtitle="Show poeple what your item looks like..."
+        />
+        <ImageUpload
+          value={ imageSrc }
+          onChange={ (value) => setCustomValue('imageSrc', value) }
+        />
+      </div>
+    );
+  }
 
   return (
     <Modal
