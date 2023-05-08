@@ -201,6 +201,34 @@ const RentModal = () => {
     );
   }
 
+  if (step === STEPS.DESCREPTION) {
+    bodyContent = (
+      <div className="flex flex-col gap-7">
+        <Heading
+          title="Describe your item..."
+          subtitle="Please describe the item you you are listing. Include relevant details such as brand, model, size, color, etc."
+        />
+        <Input
+          id="title"
+          label="Title"
+          disabled={ isLoading }
+          register={ register }
+          errors={ errors }
+          required
+        />
+        <div className="border-b border-b-neutral-300"></div>
+        <Input
+          id="description"
+          label="Description"
+          disabled={ isLoading }
+          register={ register }
+          errors={ errors }
+          required
+        />
+      </div>
+    );
+  }
+
   return (
     <Modal
       title="Rent Your Stuff"
