@@ -17,7 +17,7 @@ L.Icon.Default.mergeOptions({
 });
 
 interface MapProps {
-  center?: number[]
+  center?: number[];
 }
 
 const Map: React.FC<MapProps> = ({ center }) => {
@@ -25,7 +25,7 @@ const Map: React.FC<MapProps> = ({ center }) => {
 
     <MapContainer
       center={ center as L.LatLngExpression || [ 31.95586995, +35.2703 ] }
-      zoom={ center ? 4 : 8 }
+      zoom={ center ? 10.5 : 8 }
       scrollWheelZoom={ true }
       // zoomDelta={.01}
       className="h-[35vh] p-5 rounded-lg"
@@ -34,11 +34,11 @@ const Map: React.FC<MapProps> = ({ center }) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {center && (
-        <Marker 
-          position={center as L.LatLngExpression}
+      { center && (
+        <Marker
+          position={ center as L.LatLngExpression }
         />
-      )}
+      ) }
     </MapContainer>
   );
 };
