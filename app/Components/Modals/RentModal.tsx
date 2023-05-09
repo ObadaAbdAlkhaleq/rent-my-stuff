@@ -229,6 +229,27 @@ const RentModal = () => {
     );
   }
 
+  if (step === STEPS.PRICE) {
+    bodyContent = (
+      <div className="">
+        <Heading
+          title="Now, lets talk money!"
+          subtitle="Set your price"
+        />
+        <Input
+          id="price"
+          label="Price"
+          type="number"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+          formatPrice
+        />
+      </div>
+    )
+  }
+
   return (
     <Modal
       title="Rent Your Stuff"

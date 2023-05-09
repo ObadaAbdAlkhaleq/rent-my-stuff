@@ -12,7 +12,7 @@ interface InputProps {
   label:string;
   type?: string;
   disabled?: boolean;
-  formatPrice?: string;
+  formatPrice?: boolean;
   required?: boolean;
   register: UseFormRegister<FieldValues>,
   errors: FieldErrors;
@@ -32,7 +32,7 @@ const Input: React.FC<InputProps> = ({
     <div className="w-full relative">
       {formatPrice && (
       <BiDollar 
-        size={24} 
+        size={20} 
         className="
           absolute 
           text-neutral-700 
