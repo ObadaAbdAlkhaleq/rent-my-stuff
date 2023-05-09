@@ -1,19 +1,24 @@
 'use client';
 
+
 import { useMemo, useState } from "react";
 import Modal from "./Modal";
-import useRentModal from "@/app/hooks/useRentModal";
 import Heading from "../Heading";
-import { catagories } from "../navbar/Catagories";
-import CategoryBox from "../navbar/CategoryBox";
 import CategoryInput from "../Inputs/CategoryInput";
-import { FieldValues, useForm } from "react-hook-form";
+import { catagories } from "../navbar/Catagories";
 import AreaSelect from "../Inputs/AreaSelect";
-import dynamic from "next/dynamic";
 import DropDown from "../Inputs/DropDown";
 import Input from "../Inputs/Input";
-import TextFieldInput from "../Inputs/TextFieldInput";
 import ImageUpload from "../Inputs/ImageUpload";
+import TextFieldInput from "../Inputs/TextFieldInput";
+
+import useRentModal from "@/app/hooks/useRentModal";
+
+import axios from "axios";
+import dynamic from "next/dynamic";
+import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 enum STEPS {
   CATEGORY = 0,
@@ -29,6 +34,7 @@ const RentModal = () => {
   const rentModal = useRentModal();
   const [ step, setStep ] = useState(STEPS.CATEGORY);
   const [ isLoading, setIsLoading ] = useState(false);
+  const router = useRouter();
 
   const { register, handleSubmit, setValue, watch, formState: { errors, }, reset } = useForm<FieldValues>({
     defaultValues: {
@@ -65,6 +71,30 @@ const RentModal = () => {
   };
   const onNext = () => {
     setStep((value) => value + 1);
+  };
+
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    if (step !== STEPS.PRICE) {
+      return onNext();
+    }
+
+    setIsLoading(true);
+
+    axios.post('/api/listings', data)
+      .then(() => {
+        toast.success('Listing added successfully!');
+        router.refresh();
+        reset();
+        setStep(STEPS.CATEGORY);
+        rentModal.onClose();
+      })
+      .catch(() => {
+        toast.error('Something went wrong try again later!');
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+
   };
 
   const actionLabel = useMemo(() => {
@@ -240,14 +270,14 @@ const RentModal = () => {
           id="price"
           label="Price"
           type="number"
-          disabled={isLoading}
-          register={register}
-          errors={errors}
+          disabled={ isLoading }
+          register={ register }
+          errors={ errors }
           required
           formatPrice
         />
       </div>
-    )
+    );
   }
 
   return (
@@ -255,7 +285,7 @@ const RentModal = () => {
       title="Rent Your Stuff"
       isOpen={ rentModal.isOpen }
       onClose={ rentModal.onClose }
-      onSubmit={ onNext }
+      onSubmit={ handleSubmit(onSubmit) }
       actionLabel={ actionLabel }
       secondaryAction={ step === STEPS.CATEGORY ? undefined : onPrev }
       secondaryActionLabel={ secondaryActionLabel }

@@ -32,7 +32,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
 
         // else prompt the list item modal
         rentModal.onOpen();
-        console.log("rent modal opened");
+        // console.log("rent modal opened");
 
     }, [ loginModal, currentUser ]);
 
@@ -80,7 +80,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                                     label="My Items"
                                 />
                                 <MenuItem
-                                    onClick={ () => { } }
+                                    onClick={ onRent }
                                     label="List your stuff"
                                 />
                                 <div className="flex-grow border-t "></div>
