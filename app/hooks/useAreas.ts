@@ -1,11 +1,11 @@
-import countries from "world-countries";
+import areas from "areas-areas";
 
-const formattedAreas = countries.map((country) => ({
-  value: country.cca2,
-  label: country.name.common,
-  flag: country.flag,
-  latlng: country.latlng,
-  region: country.region,
+const formattedAreas = areas.map((area) => ({
+  value: area.areacodename,
+  label: area.name.official,
+  flag: area.flag,
+  latlng: area.latlng,
+  region: area.region,
 }));
 
 const useAreas = () => {
