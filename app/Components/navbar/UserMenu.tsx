@@ -8,11 +8,11 @@ import useRentModal from "@/app/hooks/useRentModal";
 
 import { AiOutlineMenu } from "react-icons/ai";
 import { useCallback, useState } from "react";
-import { User } from "@prisma/client";
+import { safeUser } from "@/app/types";
 import { signOut } from "next-auth/react";
 
 interface UserMenuProps {
-    currentUser?: User | null;
+    currentUser?: safeUser | null;
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
