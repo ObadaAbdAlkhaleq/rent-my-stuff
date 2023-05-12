@@ -9,7 +9,7 @@ import { MdTableRestaurant } from "react-icons/md";
 import CategoryBox from "./CategoryBox";
 import { usePathname, useSearchParams } from "next/navigation";
 
-export const catagories = [
+export const categories = [
   {
     label: 'Indoor Furniture',
     icon: GiSofa,
@@ -30,9 +30,9 @@ export const catagories = [
     icon: MdTableRestaurant,
     description: 'Events supplies'
   },
-]
+];
 
-const Catagories = () => {
+const Categories = () => {
 
   const params = useSearchParams();
   const category = params?.get('category');
@@ -43,20 +43,20 @@ const Catagories = () => {
     return null;
   }
 
-  return ( 
+  return (
     <Container>
       <div className="pt-4 flex flex-row items-center justify-between overflow-x-auto">
-        {catagories.map(((item) => (
-          <CategoryBox 
-            key={item.label}
-            label={item.label}
-            icon={item.icon}
-            selected={category === item.label}
+        { categories.map(((item) => (
+          <CategoryBox
+            key={ item.label }
+            label={ item.label }
+            icon={ item.icon }
+            selected={ category === item.label }
           />
-        )))}
+        ))) }
       </div>
     </Container>
   );
-}
+};
 
-export default Catagories;
+export default Categories;

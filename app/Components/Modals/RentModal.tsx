@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 import Modal from "./Modal";
 import Heading from "../Heading";
 import CategoryInput from "../Inputs/CategoryInput";
-import { catagories } from "../navbar/Catagories";
+import { categories } from "../navbar/Categories";
 import AreaSelect from "../Inputs/AreaSelect";
 import DropDown from "../Inputs/DropDown";
 import Input from "../Inputs/Input";
@@ -121,7 +121,7 @@ const RentModal = () => {
       <div
         className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[35vh] overflow-y-auto"
       >
-        { catagories.map((item) => (
+        { categories.map((item) => (
           <div key={ item.label } className="">
             <CategoryInput
               onClick={ (category) =>
