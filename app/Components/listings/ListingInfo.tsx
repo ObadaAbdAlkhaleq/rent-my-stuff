@@ -6,6 +6,7 @@ import { SafeUser } from "@/app/types";
 import { IconType } from "react-icons";
 import { SlSpeedometer } from "react-icons/sl";
 import ListingInfoMini from "@/app/Components/listings/ListingInfoMini";
+import dynamic from "next/dynamic";
 
 interface ListingInfoProps {
   user: SafeUser;
@@ -20,6 +21,10 @@ interface ListingInfoProps {
   locationValue: string;
 }
 
+const Map = dynamic(() => import('../Map'), {
+  ssr: false
+});
+
 const ListingInfo: React.FC<ListingInfoProps> = ({
   user, description, category, usage, conditionsValue, locationValue
 }) => {
@@ -28,15 +33,15 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
   const coordinates = getByValue(locationValue)?.latlng;
 
   return (
-    <div className="col-span-4 flex flex-col gap-8">
+    <div className="col-span-5 flex flex-col gap-8">
       <div className="flex flex-col gap-4">
-        <div className="text-xl flex font-semibold items-center gap-2">
+        <div className="text-xl flex font-semibold items-center md:justify-between gap-2">
           <div>Item is Listed by { user?.name }</div>
           <Avatar
             src={ user?.image }
           />
         </div>
-        <div className="flex flex-row">
+        <div className="flex flex-col md:flex-row gap-y-4 md:gap-x-4">
           { category && (
             <ListingInfoMini
               icon={ category.icon }
@@ -53,6 +58,10 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
             sublabel={ usage }
           />
         </div>
+        <hr />
+        <Map
+          center={ coordinates }
+        />
       </div>
     </div>
   );

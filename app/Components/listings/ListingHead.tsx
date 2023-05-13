@@ -21,6 +21,7 @@ const ListingHead: React.FC<ListingHeadProps> = ({ title, imageSrc, locationValu
       <Heading
         title={ title }
         subtitle={ `${location?.region}, ${location?.label}` }
+        big
       />
       <div
         className="w-full h-[60vh] overflow-hidden rounded-xl relative"
