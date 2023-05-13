@@ -16,8 +16,8 @@ const CategoryView: React.FC<CategoryViewProps> = ({
   sub
 }) => {
   return (
-    <div className="flex flex-col gap-6 w-[14rem] h-20">
-      <div className="flex flex-row items-center p-4 h-full w-full gap-2 rounded-xl border border-[#DDDDDD]">
+    <div className="">
+      <div className="flex flex-row items-center p-4  rounded-xl border border-[#DDDDDD] gap-6 w-[14rem] h-20">
         <Icon size={ 30 } className="flex-start text-neutral-600 mr-1" />
         <div className={ ` text-ellipsis line-clamp-2 ${sub ? 'flex flex-col' : 'items-center justify-center'}` }>
           <div className="text-lg font-semibold">
