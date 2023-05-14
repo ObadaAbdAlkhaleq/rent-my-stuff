@@ -30,7 +30,7 @@ const ListingHead: React.FC<ListingHeadProps> = ({ title, imageSrc, locationValu
           alt="Image"
           src={ imageSrc }
           fill
-          className="object-cover w-full"
+          className="object-cover w-full shadow-md"
         />
         <div className="absolute top-5 right-5">
           <HeartButton
