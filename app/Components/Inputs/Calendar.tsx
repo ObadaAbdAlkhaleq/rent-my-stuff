@@ -23,6 +23,7 @@ const Calendar: React.FC<CalendarProps> = ({ value, disabledDates, onChange }) =
       showDateDisplay={ false }
       minDate={ new Date() }
       disabledDates={ disabledDates }
+      months={ 2 }
     />
   );
 };

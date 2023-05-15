@@ -8,14 +8,16 @@ import useRentModal from "@/app/hooks/useRentModal";
 
 import { AiOutlineMenu } from "react-icons/ai";
 import { useCallback, useState } from "react";
-import { safeUser } from "@/app/types";
+import { SafeUser } from "@/app/types";
 import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 interface UserMenuProps {
-    currentUser?: safeUser | null;
+    currentUser?: SafeUser | null;
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
+    const router = useRouter();
     const registerModal = useRegisterModal();
     const loginModal = useLoginModal();
     const rentModal = useRentModal();
@@ -64,8 +66,13 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                         { currentUser ? (
                             <>
                                 <MenuItem
-                                    onClick={ () => { } }
-                                    label="Rented"
+                                    onClick={ () => router.push('/') }
+                                    label="Home"
+                                />
+                                <hr />
+                                <MenuItem
+                                    onClick={ () => router.push('/reserved') }
+                                    label="Reserved Items"
                                 />
                                 <MenuItem
                                     onClick={ () => { } }

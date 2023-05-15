@@ -1,7 +1,6 @@
 'use client';
 
-import { Listing, Reservation } from "@prisma/client";
-import { SafeListing, SafeUser } from "../types";
+import { SafeListing, SafeReservation, SafeUser } from "../types";
 import { useRouter } from "next/navigation";
 import useAreas from "../hooks/useAreas";
 import { format } from "date-fns";
@@ -12,8 +11,8 @@ import { useCallback, useMemo } from "react";
 
 interface ListingCardProps {
   data: SafeListing;
-  reservation?: Reservation;
-  onAction?: (action: string) => void;
+  reservation?: SafeReservation;
+  onAction?: (id: string) => void;
   disabled?: boolean;
   actionLabel?: string;
   actionId?: string;
@@ -46,22 +45,22 @@ const ListingCard: React.FC<ListingCardProps> = ({ data, reservation, onAction, 
     const start = new Date(reservation.startDate);
     const end = new Date(reservation.endDate);
 
-    return `${format(start, 'PP')} - ${format(end, 'PP')}`;
+    return `${format(start, 'MMM dd, yy')} - ${format(end, 'PP')}`;
   }, [ reservation ]);
 
   return (
     <div
       onClick={ () => router.push(`/listings/${data.id}`) }
-      className="col-sapn-1 cursor-pointer group "
+      className="col-span-1 cursor-pointer group "
     >
       <div className="flex flex-col gap-2 w-full">
         <div className="aspect-square w-full relative overflow-hidden rounded-xl shadow-sm">
           <Image
             fill
-            alt={ `${data.title} image` }
+            className="object-cover h-full w-full group-hover:scale-110 transition"
             // style={ { objectFit: "contain" } }
             src={ data.imageSrc }
-            className="object-cover h-full w-full group-hover:scale-110 transition"
+            alt={ `${data.title} image` }
           />
           <div className="absolute top-3 right-3">
             <HeartButton

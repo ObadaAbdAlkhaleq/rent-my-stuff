@@ -1,3 +1,4 @@
+import ClientOnly from "./Components/ClientOnly";
 import Container from "./Components/Container";
 import ListingCard from "./Components/ListingCard";
 import EmptyState from "./EmptyState";
@@ -10,15 +11,18 @@ export default async function Home() {
 
   if (listings.length === 0) {
     return (
-      <EmptyState showReset />
+      <ClientOnly>
+        <EmptyState showReset />
+      </ClientOnly>
     );
   }
 
 
   return (
-    <Container>
-      <div
-        className="
+    <ClientOnly>
+      <Container>
+        <div
+          className="
         pt-24 
         grid 
         grid-cols-1 
@@ -28,17 +32,18 @@ export default async function Home() {
         xl:grid-cols-5
         2xl:grid-cols-6
         "
-      >
-        { listings.map((listing) => {
-          return (
-            <ListingCard
-              key={ listing.id }
-              currentUser={ currentUser }
-              data={ listing }
-            />
-          );
-        }) }
-      </div>
-    </Container>
+        >
+          { listings.map((listing) => {
+            return (
+              <ListingCard
+                key={ listing.id }
+                currentUser={ currentUser }
+                data={ listing }
+              />
+            );
+          }) }
+        </div>
+      </Container>
+    </ClientOnly>
   );
 }
