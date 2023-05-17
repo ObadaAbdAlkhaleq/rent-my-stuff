@@ -90,6 +90,7 @@ const ListingClient: React.FC<ListingClientProps> = ({ listing, currentUser, res
       <div className="max-w-screen-lg mx-auto">
         <div className="flex flex-col gap-1">
           <ListingHead
+            data={ listing }
             title={ listing.title }
             imageSrc={ listing.imageSrc }
             locationValue={ listing.locationValue }

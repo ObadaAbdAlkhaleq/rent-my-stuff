@@ -17,7 +17,7 @@ const ItemsPage = async () => {
       </ClientOnly>
     );
   }
-  // @ts-ignore
+
   const listings = await getListings({ userId: currentUser?.id });
 
   if (listings.length === 0) {

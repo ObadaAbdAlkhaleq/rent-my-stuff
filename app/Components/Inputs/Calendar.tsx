@@ -10,9 +10,15 @@ interface CalendarProps {
   value: Range,
   onChange: (value: RangeKeyDict) => void;
   disabledDates?: Date[];
+  month?: boolean;
 }
 
-const Calendar: React.FC<CalendarProps> = ({ value, disabledDates, onChange }) => {
+
+const Calendar: React.FC<CalendarProps> = ({ value, disabledDates, onChange, month }) => {
+  let months = 2;
+  if (month) {
+    months = 1;
+  }
   return (
     <DateRange
       rangeColors={ [ "#262626" ] }
@@ -23,7 +29,7 @@ const Calendar: React.FC<CalendarProps> = ({ value, disabledDates, onChange }) =
       showDateDisplay={ false }
       minDate={ new Date() }
       disabledDates={ disabledDates }
-      months={ 2 }
+      months={ months }
     />
   );
 };

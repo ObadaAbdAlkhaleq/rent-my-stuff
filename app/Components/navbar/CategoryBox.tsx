@@ -6,14 +6,14 @@ import { IconType } from "react-icons";
 import querystring from "query-string";
 
 
-interface CategoryBoxProps{
+interface CategoryBoxProps {
   icon: IconType;
   label: string;
   selected?: boolean;
 }
 
-const CategoryBox: React.FC<CategoryBoxProps> = ({label, icon: Icon, selected,}) => {
-  
+const CategoryBox: React.FC<CategoryBoxProps> = ({ label, icon: Icon, selected, }) => {
+
   const router = useRouter();
   const params = useSearchParams();
   const handleClick = useCallback(() => {
@@ -29,7 +29,7 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({label, icon: Icon, selected,})
     const updatedQuery: any = {
       ...currentQuery,
       category: label
-    }
+    };
 
     if (params?.get('category') === label) {
       delete updatedQuery.category;
@@ -39,29 +39,29 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({label, icon: Icon, selected,})
     const url = querystring.stringifyUrl({
       url: '/',
       query: updatedQuery
-    }, { skipNull: true })
+    }, { skipNull: true });
 
     router.push(url);
-  }, [label, params, router]);
+  }, [ label, params, router ]);
 
 
   return (
-    <div 
-      onClick={handleClick}
-      className={` 
+    <div
+      onClick={ handleClick }
+      className={ ` 
       flex flex-col items-center justify-center gap-2 py-1 border-b-2 hover:text-neutral-800 transition cursor-pointer
       ${selected ? 'border-b-neutral-800' : 'border-transparent'}
       ${selected ? 'text-neutral-800' : 'text-neutral-500'}
 
       `}>
       <Icon size="24" />
-      <div 
-        className="font-medium text-sm"
-        >
-        {label}
+      <div
+        className="font-medium text-sm text-center line-clamp-1 text-ellipsis"
+      >
+        { label }
       </div>
     </div>
   );
-}
+};
 
 export default CategoryBox;

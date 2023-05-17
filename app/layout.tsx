@@ -8,6 +8,9 @@ import RentModal from './Components/Modals/RentModal';
 import ToasterProvider from "./providers/ToasterProvider";
 import getCurrentUser from './actions/getCurrentUser';
 import ClientOnly from './Components/ClientOnly';
+import SearchModal from './Components/Modals/SearchModal';
+import Providers from './providers';
+
 
 export const metadata = {
   title: "RentMyStuff",
@@ -35,11 +38,14 @@ export default async function RootLayout({
           <RegisterModal />
           <LoginModal />
           <RentModal />
+          <SearchModal />
           <Navbar currentUser={ currentUser } />
         </ClientOnly>
-        <div className="pb-20 pt-24">
-          { children }
-        </div>
+        <Providers>
+          <div className="pb-20 pt-24">
+            { children }
+          </div>
+        </Providers>
       </body>
     </html>
   );

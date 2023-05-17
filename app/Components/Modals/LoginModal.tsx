@@ -22,7 +22,7 @@ const LoginModal = () => {
 
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
-  const [isLoading, setIsLoading] = useState(false);
+  const [ isLoading, setIsLoading ] = useState(false);
   const {
     register,
     handleSubmit,
@@ -30,53 +30,53 @@ const LoginModal = () => {
       errors,
     },
   } = useForm<FieldValues>({
-    defaultValues : {
-      email : '',
-      password : ''
+    defaultValues: {
+      email: '',
+      password: ''
     }
   });
 
-  const onSubmit : SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
     signIn(
       'credentials', {
-        ...data, redirect: false,
+      ...data, redirect: false,
     }).then((callback) => {
       setIsLoading(false);
 
-      if (callback?.ok){
+      if (callback?.ok) {
         toast.success('Logged in');
         router.refresh();
         loginModal.onClose();
       }
 
       if (callback?.error) {
-        toast.error(callback?.error)
+        toast.error(callback?.error);
       }
-    })
-  }
+    });
+  };
   const bodyContent = (
     <div className="flex flex-col gap-4">
       <Heading
         title="Welcome to RentMyStuff"
         subtitle="Create an Account!"
       />
-      <Input 
-        id="email" 
+      <Input
+        id="email"
         label="Email"
-        disabled={isLoading}
-        register={register}
-        errors={errors}
+        disabled={ isLoading }
+        register={ register }
+        errors={ errors }
         required
       />
-      <Input 
-        id="password"  
+      <Input
+        id="password"
         label="Password"
         type="password"
-        disabled={isLoading}
-        register={register}
-        errors={errors}
+        disabled={ isLoading }
+        register={ register }
+        errors={ errors }
         required
       />
     </div>
@@ -85,49 +85,49 @@ const LoginModal = () => {
   const switcher = useCallback(() => {
     loginModal.onClose();
     registerModal.onOpen();
-  }, [loginModal, registerModal]);
+  }, [ loginModal, registerModal ]);
 
   const footerContent = (
     <div className="flex flex-col gap-4 mt-3">
-      {/* <br /> */}
+      {/* <br /> */ }
       <div className="flex items-center justify-center">
         <div className="flex-grow border-t "></div>
         <div className="items-center text-sm px-6">or</div>
         <div className="flex-grow border-t "></div>
       </div>
-      <Button 
-        onClick={() => signIn("facebook")}
+      <Button
+        onClick={ () => signIn("facebook") }
         outline
         label="Continue with Facebook"
-        icon={BsFacebook}
-        />
-      <Button 
-        onClick={() => signIn('google')}
+        icon={ BsFacebook }
+      />
+      <Button
+        onClick={ () => signIn('google') }
         outline
         label="Continue with Google"
-        icon={FcGoogle}
+        icon={ FcGoogle }
       />
       <div className="text-neutral-500 text-center mt-4 font-light ">
         <div className="justify-center flex flex-row items-center gap-2">
-          <div>Don't have an account?</div>
-          <div onClick={switcher} className="text-neutral-950 cursor-pointer hover:underline">Sign up</div>
+          <div>Dont have an account?</div>
+          <div onClick={ switcher } className="text-neutral-950 cursor-pointer hover:underline">Sign up</div>
         </div>
       </div>
     </div>
-  )
+  );
 
   return (
     <Modal
-      disabled={isLoading}
-      isOpen={loginModal.isOpen}
+      disabled={ isLoading }
+      isOpen={ loginModal.isOpen }
       title="Login"
       actionLabel="Continue"
-      onClose={loginModal.onClose}
-      onSubmit={handleSubmit(onSubmit)}
-      body={bodyContent}
-      footer={footerContent}
+      onClose={ loginModal.onClose }
+      onSubmit={ handleSubmit(onSubmit) }
+      body={ bodyContent }
+      footer={ footerContent }
     />
   );
-}
+};
 
 export default LoginModal;

@@ -1,5 +1,6 @@
 'use client';
-
+import Slider from "react-slick";
+import "node_modules/slick-carousel/slick/slick-theme.css";
 import { SafeListing, SafeReservation, SafeUser } from "../types";
 import { useRouter } from "next/navigation";
 import useAreas from "../hooks/useAreas";
@@ -19,19 +20,28 @@ interface ListingCardProps {
   currentUser?: SafeUser | null;
 }
 
-const ListingCard: React.FC<ListingCardProps> = ({ data, reservation, onAction, disabled, actionId = "", actionLabel, currentUser }) => {
-
+const ListingCard: React.FC<ListingCardProps> = ({
+  data,
+  reservation,
+  onAction,
+  disabled,
+  actionId = "",
+  actionLabel,
+  currentUser,
+}) => {
   const router = useRouter();
   const { getByValue } = useAreas();
   const location = getByValue(data.locationValue);
 
-  const handleCancel = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    if (disabled) return;
+  const handleCancel = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation();
+      if (disabled) return;
 
-    onAction?.(actionId);
-
-  }, [ disabled, onAction, actionId ]);
+      onAction?.(actionId);
+    },
+    [ disabled, onAction, actionId ]
+  );
 
   const price = useMemo(() => {
     if (reservation) {
@@ -45,7 +55,7 @@ const ListingCard: React.FC<ListingCardProps> = ({ data, reservation, onAction, 
     const start = new Date(reservation.startDate);
     const end = new Date(reservation.endDate);
 
-    return `${format(start, 'MMM dd, yy')} - ${format(end, 'PP')}`;
+    return `${format(start, "MMM dd, yy")} - ${format(end, "PP")}`;
   }, [ reservation ]);
 
   return (
@@ -59,17 +69,15 @@ const ListingCard: React.FC<ListingCardProps> = ({ data, reservation, onAction, 
             fill
             className="object-cover h-full w-full group-hover:scale-110 transition"
             // style={ { objectFit: "contain" } }
-            src={ data.imageSrc }
+            src={ data.imageSrc[ 0 ] }
             alt={ `${data.title} image` }
           />
-          <div className="absolute top-3 right-3">
-            <HeartButton
-              listingId={ data.id }
-              currentUser={ currentUser }
-            />
-          </div>
         </div>
-        <div className="font-semibold text-lg">{ location?.region }, { location?.label }</div>
+        <div className="absolute top-3 right-3">
+          <HeartButton listingId={ data.id } currentUser={ currentUser } />
+        </div>
+        <div className="font-semibold text-lg">{ data?.title }</div>
+        <div className="font-light text-neutral-500 text-ellipsis line-clamp-1">{ location?.label }, { location?.region }</div>
         <div className="font-light text-neutral-500">{ reservationDate || data.category }</div>
         <div className="flex flex-row items-center gap-1">
           <div className="font-semibold">${ price }</div>
@@ -77,16 +85,18 @@ const ListingCard: React.FC<ListingCardProps> = ({ data, reservation, onAction, 
             <div className="font-light">/ Hour</div>
           ) }
         </div>
-        { onAction && actionLabel && (
-          <Button
-            disabled={ disabled }
-            small
-            label={ actionLabel }
-            onClick={ handleCancel }
-          />
-        ) }
-      </div>
-    </div>
+        {
+          onAction && actionLabel && (
+            <Button
+              disabled={ disabled }
+              small
+              label={ actionLabel }
+              onClick={ handleCancel }
+            />
+          )
+        }
+      </div >
+    </div >
   );
 };
 
