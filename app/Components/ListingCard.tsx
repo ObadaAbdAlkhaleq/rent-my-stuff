@@ -55,7 +55,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
     const start = new Date(reservation.startDate);
     const end = new Date(reservation.endDate);
 
-    return `${format(start, "MMM dd, yy")} - ${format(end, "PP")}`;
+    return `${format(start, "MMM dd, yy")} - ${format(end, "MMM dd, yy")}`;
   }, [ reservation ]);
 
   const responsive = {
@@ -81,9 +81,9 @@ const ListingCard: React.FC<ListingCardProps> = ({
   return (
     <div
       onClick={ () => router.push(`/listings/${data.id}`) }
-      className="col-span-1 cursor-pointer group "
+      className="col-span-1 cursor-pointer group hover:bg-neutral-50 transition ease-in-out delay-150 p-1 rounded-xl"
     >
-      <div className="flex flex-col gap-2 w-full">
+      <div className="z-10 flex flex-col gap-2 w-full">
         <Carousel
           responsive={ responsive }
           dotListClass="custom-dot-list-style"
@@ -97,7 +97,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
               </div>
               <Image
                 fill
-                className="object-cover h-full w-full group-hover:scale-110 transition"
+                className="object-cover h-full w-full hover:scale-110 transition"
                 // style={ { objectFit: "contain" } }
                 src={ image }
                 alt={ `${data.title} image` }
@@ -105,7 +105,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
             </div>
           )) }
         </Carousel>
-        <div className="font-semibold text-lg">{ data?.title }</div>
+        <div className="font-semibold text-lg text-ellipsis line-clamp-1">{ data?.title }</div>
         <div className="font-light text-neutral-500 text-ellipsis line-clamp-1">{ location?.label }, { location?.region }</div>
         <div className="font-light text-neutral-500">{ reservationDate || data.category }</div>
         <div className="flex flex-row items-center gap-1">

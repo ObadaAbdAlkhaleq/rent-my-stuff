@@ -1,6 +1,5 @@
 'use client';
 import Heading from "@/app/Components/Heading";
-import HeartButton from "@/app/Components/HeartButton";
 import useAreas from "@/app/hooks/useAreas";
 import { SafeListing, SafeUser } from "@/app/types";
 import Image from "next/image";
@@ -8,8 +7,7 @@ import { useEffect, useState } from "react";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import Modal from "../Modals/Modal";
-import { IoMdClose } from "react-icons/io";
-
+import { IoMdApps, IoMdClose } from "react-icons/io";
 interface ListingHeadProps {
   data: SafeListing;
   title: string;
@@ -60,7 +58,17 @@ const ListingHead: React.FC<ListingHeadProps> = ({ data, title, imageSrc, locati
     return (
       <>
         <div className="h-screen w-full justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-black md:bg-neutral-800/70">
-          <div className="flex flex-col gap-2 relative w-full md:w-4/6 lg:w-4/6 xl:w-3/5 my-6 mx-auto h-full md:h-auto lg:h-auto 2xl:w-3/5">
+          <div className="flex flex-col gap-2 relative w-full md:w-4/6 lg:w-4/6 xl:w-3/5  mx-auto h-full md:h-auto lg:h-auto 2xl:w-[50%]">
+            <div className="flex flex-col items-end inset-0 z-50 absolute bottom-2 left-2">
+              <div className="p-2 rounded-full text-gray-600 hover:bg-slate-50 hover:shadow-sm justify-center">
+                <button
+                  className="p-1 border-0 hover:opacity-70 transition"
+                  onClick={ handleClose }
+                >
+                  <IoMdClose size={ 24 } />
+                </button>
+              </div>
+            </div>
             <Carousel
               responsive={ responsive }
               dotListClass="custom-dot-list-style"
@@ -69,15 +77,6 @@ const ListingHead: React.FC<ListingHeadProps> = ({ data, title, imageSrc, locati
             >
               { data?.imageSrc?.length > 0 && data.imageSrc.map((image: string) => (
                 <div key={ image } className="aspect-square inset-0 relative overflow-hidden rounded-xl shadow-sm">
-                  <div
-                    className="flex z-[51] items-center p-5 rounded-t justify-center relative text-white top-40 left-[26rem]">
-                    <button
-                      className="p-1 border-0 hover:opacity-70 transition absolute"
-                      onClick={ handleClose }
-                    >
-                      <IoMdClose size={ 24 } />
-                    </button>
-                  </div>
                   <Image
                     fill
                     className="object-contain w-full h-3/6"
@@ -114,6 +113,12 @@ const ListingHead: React.FC<ListingHeadProps> = ({ data, title, imageSrc, locati
             fill
             className="object-cover w-full"
           />
+          <div
+            onClick={ () => setShowAllImages(true) }
+            className="flex flex-row justify-center items-center gap-2 absolute bottom-2 right-2 py-2 px-4 bg-slate-50 rounded-lg border border-black shadow-sm cursor-pointer select-none font-semibold">
+            <IoMdApps size={ 20 } />
+            Show More Photos
+          </div>
         </div>
       }
       { threeImages &&
@@ -154,6 +159,12 @@ const ListingHead: React.FC<ListingHeadProps> = ({ data, title, imageSrc, locati
                 className="aspect-square cursor-pointer object-cover relative top-2"
               />
             ) }
+          </div>
+          <div
+            onClick={ () => setShowAllImages(true) }
+            className="flex flex-row justify-center items-center gap-2 absolute bottom-2 right-2 py-2 px-4 bg-slate-50 rounded-lg border border-black shadow-sm cursor-pointer select-none font-semibold">
+            <IoMdApps size={ 20 } />
+            Show More Photos
           </div>
         </div>
       }
