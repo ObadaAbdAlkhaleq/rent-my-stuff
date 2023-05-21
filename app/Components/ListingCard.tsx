@@ -1,6 +1,6 @@
 'use client';
-import Slider from "react-slick";
-import "node_modules/slick-carousel/slick/slick-theme.css";
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 import { SafeListing, SafeReservation, SafeUser } from "../types";
 import { useRouter } from "next/navigation";
 import useAreas from "../hooks/useAreas";
@@ -58,24 +58,53 @@ const ListingCard: React.FC<ListingCardProps> = ({
     return `${format(start, "MMM dd, yy")} - ${format(end, "PP")}`;
   }, [ reservation ]);
 
+  const responsive = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 1
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 1
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 1
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1
+    }
+  };
+
   return (
     <div
       onClick={ () => router.push(`/listings/${data.id}`) }
       className="col-span-1 cursor-pointer group "
     >
       <div className="flex flex-col gap-2 w-full">
-        <div className="aspect-square w-full relative overflow-hidden rounded-xl shadow-sm">
-          <Image
-            fill
-            className="object-cover h-full w-full group-hover:scale-110 transition"
-            // style={ { objectFit: "contain" } }
-            src={ data.imageSrc[ 0 ] }
-            alt={ `${data.title} image` }
-          />
-        </div>
-        <div className="absolute top-3 right-3">
-          <HeartButton listingId={ data.id } currentUser={ currentUser } />
-        </div>
+        <Carousel
+          responsive={ responsive }
+          dotListClass="custom-dot-list-style"
+          removeArrowOnDeviceType={ [ "tablet", "mobile" ] }
+          showDots={ true }
+        >
+          { data?.imageSrc?.length > 0 && data.imageSrc.map((image: string) => (
+            <div className="aspect-square w-full relative overflow-hidden rounded-xl shadow-sm">
+              <div className="absolute top-3 right-3 z-10">
+                <HeartButton listingId={ data.id } currentUser={ currentUser } />
+              </div>
+              <Image
+                fill
+                className="object-cover h-full w-full group-hover:scale-110 transition"
+                // style={ { objectFit: "contain" } }
+                src={ image }
+                alt={ `${data.title} image` }
+              />
+            </div>
+          )) }
+        </Carousel>
         <div className="font-semibold text-lg">{ data?.title }</div>
         <div className="font-light text-neutral-500 text-ellipsis line-clamp-1">{ location?.label }, { location?.region }</div>
         <div className="font-light text-neutral-500">{ reservationDate || data.category }</div>
