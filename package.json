@@ -16,7 +16,7 @@
     "@types/react": "18.2.0",
     "@types/react-dom": "18.2.1",
     "@types/react-slick": "^0.23.10",
-    "areas-areas": "file:../../../Desktop/areas-areas",
+    "areas-palestine": "^0.0.1",
     "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
     "date-fns": "^2.30.0",
