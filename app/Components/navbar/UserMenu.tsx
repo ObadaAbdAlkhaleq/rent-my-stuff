@@ -7,7 +7,7 @@ import useLoginModal from "@/app/hooks/useLoginModal";
 import useRentModal from "@/app/hooks/useRentModal";
 
 import { AiOutlineMenu } from "react-icons/ai";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { SafeUser } from "@/app/types";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -22,9 +22,28 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
     const loginModal = useLoginModal();
     const rentModal = useRentModal();
     const [ isOpen, setIsOpen ] = useState(false);
+    const menuRef = useRef<HTMLDivElement>(null);
+
+    const handleClickOutsideMenu = useCallback(
+        (event: MouseEvent) => {
+            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+                setIsOpen(false);
+            }
+        },
+        []
+    );
+
     const toggleOpen = useCallback(() => {
         setIsOpen((value) => !value);
+
     }, []);
+    useEffect(() => {
+        document.body.addEventListener('click', handleClickOutsideMenu);
+
+        return () => {
+            document.body.removeEventListener('click', handleClickOutsideMenu);
+        };
+    }, [ handleClickOutsideMenu ]);
 
     const onRent = useCallback(() => {
         // if user isnt logged in, prompt up login modal
@@ -38,8 +57,12 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
 
     }, [ loginModal, currentUser ]);
 
+    const handleClickInsideMenu = useCallback(() => {
+        setIsOpen(false);
+    }, []);
+
     return (
-        <div className="relative">
+        <div className="relative" ref={ menuRef }>
             <div className="flex flex-row items-center gap-3">
                 <div
                     className="hidden md:block font-semibold text-sm py-2 px-3 rounded-full hover:bg-neutral-100 transition cursor-pointer"
@@ -61,6 +84,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
             { isOpen && (
                 <div
                     className="absolute rounded-xl shadow-md bg-white w-[40vw] right-0 top-12 overflow-hidden text-sm md:w-3/4"
+                    onClick={ handleClickInsideMenu }
                 >
                     <div className="flex flex-col cursor-pointer">
                         { currentUser ? (
