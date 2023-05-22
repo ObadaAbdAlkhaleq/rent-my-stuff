@@ -98,6 +98,7 @@ const SearchModal = () => {
   let bodyContent = (
     <div className=" flex flex-col gap-6">
       <Heading
+        id=""
         title="Set the location of where you are looking"
         subtitle=""
       />
@@ -113,6 +114,7 @@ const SearchModal = () => {
     bodyContent = (
       <div className="">
         <Heading
+          id=""
           title="When do you plan to rent this item"
           subtitle="Selecting a range shows the items that are available during the dates"
         />
@@ -128,6 +130,7 @@ const SearchModal = () => {
     bodyContent = (
       <div className="">
         <Heading
+          id=""
           title="What condition would you like the item to be"
           subtitle=""
         />

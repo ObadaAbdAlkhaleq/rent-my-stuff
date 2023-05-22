@@ -24,6 +24,7 @@ const ListingHead: React.FC<ListingHeadProps> = ({ data, title, imageSrc, locati
   const [ showAllImages, setShowAllImages ] = useState(false);
   const [ threeImages, setThreeImages ] = useState(false);
 
+
   useEffect(() => {
     if (imageSrc.length >= 3) {
       setThreeImages(true);

@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.6",
@@ -16,6 +17,7 @@
     "@types/react": "18.2.0",
     "@types/react-dom": "18.2.1",
     "@types/react-slick": "^0.23.10",
+    "areas-palestine": "^0.0.1",
     "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
     "date-fns": "^2.30.0",

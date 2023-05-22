@@ -1,4 +1,4 @@
-import areas from "areas-areas";
+import areas from "areas-palestine";
 
 const formattedAreas = areas.map((area) => ({
   value: area.areacodename,
