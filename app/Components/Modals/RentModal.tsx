@@ -115,6 +115,7 @@ const RentModal = () => {
   let bodyContent = (
     <div className="flex flex-col gap-8">
       <Heading
+        id=""
         title="What category fits your item?"
         subtitle="Choose a category"
       />
@@ -141,6 +142,7 @@ const RentModal = () => {
     bodyContent = (
       <div className="flex flex-col gap-7">
         <Heading
+          id=""
           title="Where is your item located?"
           subtitle="let others know where can they find your item?"
         />
@@ -161,6 +163,7 @@ const RentModal = () => {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
+          id=""
           title="Give info on your item"
           subtitle="How to use it? any notes for the other users to consider when renting your item,"
         />
@@ -220,6 +223,7 @@ const RentModal = () => {
     bodyContent = (
       <div className="flex flex-col gap-4">
         <Heading
+          id=""
           title="Add photos of your item"
           subtitle="Show poeple what your item looks like..."
         />
@@ -235,6 +239,7 @@ const RentModal = () => {
     bodyContent = (
       <div className="flex flex-col gap-7">
         <Heading
+          id=""
           title="Describe your item..."
           subtitle="Please describe the item you you are listing. Include relevant details such as brand, model, size, color, etc."
         />
@@ -263,6 +268,7 @@ const RentModal = () => {
     bodyContent = (
       <div className="">
         <Heading
+          id=""
           title="Now, lets talk money!"
           subtitle="Set your price"
         />

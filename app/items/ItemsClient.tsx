@@ -37,6 +37,7 @@ const ItemsClient: React.FC<ItemsClientProps> = ({ listings, currentUser }) => {
   return (
     <Container>
       <Heading
+        id=""
         title="Items"
         subtitle="Where you been where youre going?"
       />

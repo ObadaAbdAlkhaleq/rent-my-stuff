@@ -37,6 +37,7 @@ const ReservedClient: React.FC<ReservedClientProps> = ({ reservations, currentUs
   return (
     <Container>
       <Heading
+        id=""
         title="Reserved"
         subtitle="Where you been where youre going?"
       />
