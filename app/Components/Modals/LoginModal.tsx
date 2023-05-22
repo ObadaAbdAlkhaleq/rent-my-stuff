@@ -61,6 +61,7 @@ const LoginModal = () => {
       <Heading
         title="Welcome to RentMyStuff"
         subtitle="Create an Account!"
+        id=""
       />
       <Input
         id="email"
