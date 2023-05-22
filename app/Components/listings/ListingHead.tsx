@@ -3,7 +3,7 @@ import Heading from "@/app/Components/Heading";
 import useAreas from "@/app/hooks/useAreas";
 import { SafeListing, SafeUser } from "@/app/types";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import Modal from "../Modals/Modal";
@@ -24,13 +24,14 @@ const ListingHead: React.FC<ListingHeadProps> = ({ data, title, imageSrc, locati
   const [ showAllImages, setShowAllImages ] = useState(false);
   const [ threeImages, setThreeImages ] = useState(false);
 
-  // console.log(imageSrc.length);
+
   useEffect(() => {
     if (imageSrc.length >= 3) {
       setThreeImages(true);
     }
   }, []);
 
+  // console.log(imageSrc.length);
   const handleClose = () => {
     setShowAllImages(false);
   };
@@ -54,10 +55,33 @@ const ListingHead: React.FC<ListingHeadProps> = ({ data, title, imageSrc, locati
       items: 1
     }
   };
+  const overlayRef = useRef<HTMLDivElement>(null);
+
+  const handleClickOutsideModal = useCallback(
+    (event: MouseEvent) => {
+      if (overlayRef.current && event.target === overlayRef.current) {
+        handleClose();
+      }
+    },
+    [ handleClose ]
+  );
+
+  useEffect(() => {
+    if (showAllImages) {
+      document.body.addEventListener('click', handleClickOutsideModal);
+    }
+
+    return () => {
+      document.body.removeEventListener('click', handleClickOutsideModal);
+    };
+  }, [ showAllImages, handleClickOutsideModal ]);
   if (showAllImages) {
     return (
       <>
-        <div className="h-screen w-full justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-black md:bg-neutral-800/70">
+        <div
+          ref={ overlayRef }
+          className="h-screen w-full justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-black md:bg-neutral-800/70"
+        >
           <div className="flex flex-col gap-2 relative w-full md:w-4/6 lg:w-4/6 xl:w-3/5  mx-auto h-full md:h-auto lg:h-auto 2xl:w-[50%]">
             <div className="flex flex-col items-end inset-0 z-50 absolute bottom-2 left-2">
               <div className="p-2 rounded-full text-gray-600 hover:bg-slate-50 hover:shadow-sm justify-center">
