@@ -91,7 +91,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
           showDots={ true }
         >
           { data?.imageSrc?.length > 0 && data.imageSrc.map((image: string) => (
-            <div className="aspect-square w-full relative overflow-hidden rounded-xl shadow-sm">
+            <div key={ image } className="aspect-square w-full relative overflow-hidden rounded-xl shadow-sm">
               <div className="absolute top-3 right-3 z-10">
                 <HeartButton listingId={ data.id } currentUser={ currentUser } />
               </div>
