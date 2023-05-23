@@ -85,6 +85,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
     >
       <div className="z-10 flex flex-col gap-2 w-full">
         <Carousel
+          className='z-10-important'
           responsive={ responsive }
           dotListClass="custom-dot-list-style"
           removeArrowOnDeviceType={ [ "tablet", "mobile" ] }

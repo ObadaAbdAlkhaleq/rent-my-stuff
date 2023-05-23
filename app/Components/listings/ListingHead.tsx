@@ -94,6 +94,7 @@ const ListingHead: React.FC<ListingHeadProps> = ({ data, title, imageSrc, locati
               </div>
             </div>
             <Carousel
+              className='z-10-important'
               responsive={ responsive }
               dotListClass="custom-dot-list-style"
               removeArrowOnDeviceType={ [ "tablet", "mobile" ] }
