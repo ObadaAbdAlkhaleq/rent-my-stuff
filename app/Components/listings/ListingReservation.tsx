@@ -18,10 +18,12 @@ interface ListingReservationProps {
   onSubmit: () => void;
   disabled?: boolean;
   disabledDates: Date[];
+  reviewsAmount: number;
+  averageRating: number;
 }
 
 const ListingReservation: React.FC<ListingReservationProps> = ({
-  price, totalPrice, onChangeDate, dateRange, onSubmit, disabled, disabledDates
+  price, totalPrice, onChangeDate, dateRange, onSubmit, disabled, disabledDates, reviewsAmount, averageRating
 }) => {
   const [ isClicked, setIsClicked ] = useState(false);
   const [ isCleared, setIsCleared ] = useState(false);
@@ -56,11 +58,11 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
               <div className="flex items-center font-semibold">
                 <BsFillStarFill />
                 <div className="font-semibold">
-                  4.80 ·
+                  { averageRating } ·
                 </div>
               </div>
               <div className="text-sm underline text-neutral-600 font-medium">
-                28 reviews
+                { reviewsAmount } reviews
               </div>
             </div>
           </div>

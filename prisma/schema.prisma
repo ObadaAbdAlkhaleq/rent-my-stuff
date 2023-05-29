@@ -10,6 +10,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum UserRole {
+  ADMIN
+  USER
+}
 model User {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   name String?
@@ -20,6 +24,8 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   favoriteIds String[] @db.ObjectId
+
+  role UserRole @default(USER)
 
   accounts Account[]
   listings Listing[]
@@ -85,6 +91,10 @@ model Review {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   userId String @db.ObjectId
   listingId String @db.ObjectId
+<<<<<<< HEAD
+  authorName String?
+=======
+>>>>>>> 1e12bf267db1ed7c37217e3196614b29f20be022
   rating Float
   comment String
   createdAt DateTime @default(now())

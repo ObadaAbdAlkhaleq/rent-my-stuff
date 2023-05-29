@@ -1,8 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Reservation } from "@prisma/client";
-import { SafeListing, SafeReservation, SafeUser } from "@/app/types";
+import { SafeListing, SafeReservation, SafeReviews, SafeUser } from "@/app/types";
 import { categories } from "@/app/Components/navbar/Categories";
 import Container from "@/app/Components/Container";
 import ListingHead from "../../Components/listings/ListingHead";
@@ -15,6 +14,7 @@ import { toast } from "react-hot-toast";
 import { Range } from "react-date-range";
 import ListingReservation from "@/app/Components/listings/ListingReservation";
 import ListingReviews from "@/app/Components/listings/ListingReviews";
+import ReviewCard from "@/app/Components/ReviewCard";
 
 const initialDateRange = {
   startDate: new Date(),
@@ -24,13 +24,14 @@ const initialDateRange = {
 
 interface ListingClientProps {
   reservations?: SafeReservation[];
+  reviews?: SafeReviews[];
   listing: SafeListing & {
     user: SafeUser;
   };
   currentUser: SafeUser | null;
 }
 
-const ListingClient: React.FC<ListingClientProps> = ({ listing, currentUser, reservations = [] }) => {
+const ListingClient: React.FC<ListingClientProps> = ({ listing, currentUser, reservations = [], reviews = [] }) => {
 
   const loginModal = useLoginModal();
   const router = useRouter();
@@ -54,6 +55,15 @@ const ListingClient: React.FC<ListingClientProps> = ({ listing, currentUser, res
   const [ rating, setRating ] = useState(1);
   const [ comment, setComment ] = useState("");
   const [ dateRange, setDateRange ] = useState<Range>(initialDateRange);
+
+  const reviewsAmount = reviews.length;
+  let totalRating = 0;
+  for (let i = 0; i < reviewsAmount; i++) {
+    totalRating += reviews[ i ].rating;
+  }
+  const averageRating = totalRating / reviewsAmount;
+
+  console.log(currentUser?.name);
 
   const onCreateReservation = useCallback(() => {
     if (!currentUser) return loginModal.onOpen();
@@ -100,20 +110,24 @@ const ListingClient: React.FC<ListingClientProps> = ({ listing, currentUser, res
             id={ listing.id }
             currentUser={ currentUser }
           />
-          <div className="grid grid-cols-1 md:grid-cols-8 gap-6 md:gap-10 mt-4">
-            <div className="md:col-span-5">
-              <ListingInfo
-                user={ listing.user }
-                category={ category }
-                description={ listing.description }
-                usage={ listing.usage }
-                conditionsValue={ listing.conditionValue }
-                locationValue={ listing.locationValue }
-              />
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-8 md:gap-10 mt-4">
+            <ListingInfo
+              user={ listing.user }
+              category={ category }
+              description={ listing.description }
+              usage={ listing.usage }
+              conditionsValue={ listing.conditionValue }
+              locationValue={ listing.locationValue }
+            />
+            <ListingReviews
+              listing={ listing }
+              comment={ comment }
+              rating={ rating }
+              disabled={ isLoading }
+            />
 
-            <div className="order-first sm:order-none md:col-span-3">
-              <div className="top-16 z-40 sticky">
+            <div className="order-first mb-10 md:order-last md:col-span-3">
+              <div className="top-0 sticky">
                 <ListingReservation
                   price={ listing.price }
                   totalPrice={ totalPrice }
@@ -126,13 +140,42 @@ const ListingClient: React.FC<ListingClientProps> = ({ listing, currentUser, res
               </div>
             </div>
 
-            <div className="md:col-span-8">
+            <div className="order-first sm:order-none md:col-span-3">
+              <div className="top-16 z-40 sticky">
+                <ListingReservation
+                  reviewsAmount={ reviewsAmount }
+                  averageRating={ averageRating }
+                  price={ listing.price }
+                  totalPrice={ totalPrice }
+                  onChangeDate={ (value) => setDateRange(value) }
+                  dateRange={ dateRange }
+                  onSubmit={ onCreateReservation }
+                  disabled={ isLoading }
+                  disabledDates={ disabledDates }
+                />
+              </div>
+            </div>
+
+            <div className="grid col-span-1 md:col-span-8 gap-4">
               <ListingReviews
+                reviewerName={ currentUser?.name }
                 listing={ listing }
                 comment={ comment }
                 rating={ rating }
                 disabled={ isLoading }
               />
+              {
+                reviews.map((review) => (
+                  <div className="col-span-1 md:col-span-4 gap-4">
+                    <ReviewCard
+                      user={ currentUser }
+                      comment={ review.comment }
+                      rating={ review.rating }
+                      createdAt={ review.createdAt }
+                    />
+                  </div>
+                ))
+              }
             </div>
           </div>
         </div>

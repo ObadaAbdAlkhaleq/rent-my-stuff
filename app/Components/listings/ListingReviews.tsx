@@ -10,9 +10,11 @@ import { SafeListing, SafeUser } from "@/app/types";
 import useLoginModal from "@/app/hooks/useLoginModal";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import getCurrentUser from "@/app/actions/getCurrentUser";
 
 interface ListingReviewsProps {
   comment: string;
+  reviewerName?: string | null;
   rating: number;
   // onSubmit: (comment: string, rating: number) => void;
   disabled?: boolean;
@@ -22,10 +24,9 @@ interface ListingReviewsProps {
 }
 
 
-const ListingReviews: React.FC<ListingReviewsProps> = ({ comment, rating, disabled, listing }) => {
+const ListingReviews: React.FC<ListingReviewsProps> = ({ comment, rating, disabled, listing, reviewerName }) => {
   const [ isLoading, setIsLoading ] = useState(false);
   const loginModal = useLoginModal();
-  // const currentUser = getCurrentUser();
 
   const {
     register,
@@ -41,7 +42,7 @@ const ListingReviews: React.FC<ListingReviewsProps> = ({ comment, rating, disabl
   const handleFormSubmit: SubmitHandler<FieldValues> = (data) => {
     // if (!currentUser) return loginModal.onOpen();
     setIsLoading(true);
-    axios.post('/api/ratings', { comment: data.comment, rating: data.rating, listingId: listing?.id })
+    axios.post('/api/ratings', { comment: data.comment, rating: data.rating, listingId: listing?.id, authorName: reviewerName })
       .then(() => {
         toast.success('Review created successfully');
       }).catch((error) => {
