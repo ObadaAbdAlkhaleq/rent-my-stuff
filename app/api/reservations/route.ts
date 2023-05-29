@@ -13,6 +13,8 @@ export async function POST(req: Request) {
 
   const { listingId, startDate, endDate, totalPrice } = body;
 
+  console.log(body);
+
   if (!listingId || !startDate || !endDate || !totalPrice) return NextResponse.error();
 
   const listingAndReservations = await prisma.listing.update({
@@ -23,6 +25,8 @@ export async function POST(req: Request) {
       }
     }
   });
+
+  console.log(listingAndReservations);
 
   return NextResponse.json(listingAndReservations);
 }

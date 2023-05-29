@@ -10,6 +10,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum UserRole {
+  ADMIN
+  USER
+}
 model User {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   name String?
@@ -21,9 +25,12 @@ model User {
   updatedAt DateTime @updatedAt
   favoriteIds String[] @db.ObjectId
 
+  role UserRole @default(USER)
+
   accounts Account[]
   listings Listing[]
   reservations Reservation[]
+  reviews Review[]
 }
 
 model Account {
@@ -63,6 +70,7 @@ model Listing {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   reservations Reservation[]
+  reviews Review[]
 }
 
 model Reservation {
@@ -73,6 +81,19 @@ model Reservation {
   endDate DateTime
   totalPrice Int
   PaymentMethod String?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+}
+
+model Review {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId
+  listingId String @db.ObjectId
+  authorName String?
+  rating Float
+  comment String
   createdAt DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)

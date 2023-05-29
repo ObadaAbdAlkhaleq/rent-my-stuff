@@ -41,7 +41,7 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
           <div>Item is Listed by { user?.name }</div>
           <Avatar
             // @ts-ignore
-            src={ user?.image }
+            imageSrc={ user?.image }
           />
         </div>
         <div className="">
