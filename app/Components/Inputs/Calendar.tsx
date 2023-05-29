@@ -11,10 +11,11 @@ interface CalendarProps {
   onChange: (value: RangeKeyDict) => void;
   disabledDates?: Date[];
   month?: boolean;
+  horizontal?: boolean;
 }
 
 
-const Calendar: React.FC<CalendarProps> = ({ value, disabledDates, onChange, month }) => {
+const Calendar: React.FC<CalendarProps> = ({ value, disabledDates, onChange, month, horizontal }) => {
   let months = 2;
   if (month) {
     months = 1;
@@ -25,7 +26,7 @@ const Calendar: React.FC<CalendarProps> = ({ value, disabledDates, onChange, mon
       ranges={ [ value ] }
       date={ new Date() }
       onChange={ onChange }
-      direction="vertical"
+      direction={ `${horizontal ? 'horizontal' : 'vertical'}` }
       showDateDisplay={ false }
       minDate={ new Date() }
       disabledDates={ disabledDates }

@@ -10,6 +10,7 @@ import { BiDollar } from "react-icons/bi";
 interface TextFieldInputProps {
   id: string;
   label: string;
+  placeholder: string;
   type?: string;
   disabled?: boolean;
   required?: boolean;
@@ -20,6 +21,7 @@ interface TextFieldInputProps {
 const TextFieldInput: React.FC<TextFieldInputProps> = ({
   id,
   label,
+  placeholder,
   type = "text",
   disabled,
   register,
@@ -32,7 +34,7 @@ const TextFieldInput: React.FC<TextFieldInputProps> = ({
         id={ id }
         disabled={ disabled }
         { ...register(id, { required }) }
-        placeholder=" "
+        placeholder={ placeholder }
         required={ required }
         // type={type}
         className={ `

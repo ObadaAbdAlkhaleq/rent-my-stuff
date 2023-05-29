@@ -14,6 +14,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { Range } from "react-date-range";
 import ListingReservation from "@/app/Components/listings/ListingReservation";
+import ListingReviews from "@/app/Components/listings/ListingReviews";
 
 const initialDateRange = {
   startDate: new Date(),
@@ -50,8 +51,10 @@ const ListingClient: React.FC<ListingClientProps> = ({ listing, currentUser, res
 
   const [ isLoading, setIsLoading ] = useState(false);
   const [ totalPrice, setTotalPrice ] = useState(listing.price);
+  const [ rating, setRating ] = useState(1);
+  const [ comment, setComment ] = useState("");
   const [ dateRange, setDateRange ] = useState<Range>(initialDateRange);
-  // TODO: set API route for reservations
+
   const onCreateReservation = useCallback(() => {
     if (!currentUser) return loginModal.onOpen();
     setIsLoading(true);
@@ -97,24 +100,38 @@ const ListingClient: React.FC<ListingClientProps> = ({ listing, currentUser, res
             id={ listing.id }
             currentUser={ currentUser }
           />
-          <div className="grid grid-cols-1 md:grid-cols-8 md:gap-10 mt-4">
-            <ListingInfo
-              user={ listing.user }
-              category={ category }
-              description={ listing.description }
-              usage={ listing.usage }
-              conditionsValue={ listing.conditionValue }
-              locationValue={ listing.locationValue }
-            />
-            <div className="order-first mb-10 md:order-last md:col-span-3">
-              <ListingReservation
-                price={ listing.price }
-                totalPrice={ totalPrice }
-                onChangeDate={ (value) => setDateRange(value) }
-                dateRange={ dateRange }
-                onSubmit={ onCreateReservation }
+          <div className="grid grid-cols-1 md:grid-cols-8 gap-6 md:gap-10 mt-4">
+            <div className="md:col-span-5">
+              <ListingInfo
+                user={ listing.user }
+                category={ category }
+                description={ listing.description }
+                usage={ listing.usage }
+                conditionsValue={ listing.conditionValue }
+                locationValue={ listing.locationValue }
+              />
+            </div>
+
+            <div className="order-first sm:order-none md:col-span-3">
+              <div className="top-16 z-40 sticky">
+                <ListingReservation
+                  price={ listing.price }
+                  totalPrice={ totalPrice }
+                  onChangeDate={ (value) => setDateRange(value) }
+                  dateRange={ dateRange }
+                  onSubmit={ onCreateReservation }
+                  disabled={ isLoading }
+                  disabledDates={ disabledDates }
+                />
+              </div>
+            </div>
+
+            <div className="md:col-span-8">
+              <ListingReviews
+                listing={ listing }
+                comment={ comment }
+                rating={ rating }
                 disabled={ isLoading }
-                disabledDates={ disabledDates }
               />
             </div>
           </div>
