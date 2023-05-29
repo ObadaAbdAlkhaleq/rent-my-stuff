@@ -206,6 +206,7 @@ const RentModal = () => {
         <TextFieldInput
           id="usage"
           label="Usage"
+          placeholder="What is this item used for?"
           disabled={ isLoading }
           register={ register }
           errors={ errors }

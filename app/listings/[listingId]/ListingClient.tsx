@@ -119,26 +119,6 @@ const ListingClient: React.FC<ListingClientProps> = ({ listing, currentUser, res
               conditionsValue={ listing.conditionValue }
               locationValue={ listing.locationValue }
             />
-            <ListingReviews
-              listing={ listing }
-              comment={ comment }
-              rating={ rating }
-              disabled={ isLoading }
-            />
-
-            <div className="order-first mb-10 md:order-last md:col-span-3">
-              <div className="top-0 sticky">
-                <ListingReservation
-                  price={ listing.price }
-                  totalPrice={ totalPrice }
-                  onChangeDate={ (value) => setDateRange(value) }
-                  dateRange={ dateRange }
-                  onSubmit={ onCreateReservation }
-                  disabled={ isLoading }
-                  disabledDates={ disabledDates }
-                />
-              </div>
-            </div>
 
             <div className="order-first sm:order-none md:col-span-3">
               <div className="top-16 z-40 sticky">
@@ -166,7 +146,7 @@ const ListingClient: React.FC<ListingClientProps> = ({ listing, currentUser, res
               />
               {
                 reviews.map((review) => (
-                  <div className="col-span-1 md:col-span-4 gap-4">
+                  <div key={ review.id } className="col-span-1 md:col-span-4 gap-4">
                     <ReviewCard
                       user={ currentUser }
                       comment={ review.comment }
