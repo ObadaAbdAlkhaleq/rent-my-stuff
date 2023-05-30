@@ -100,7 +100,7 @@ const ListingClient: React.FC<ListingClientProps> = ({ listing, currentUser, res
   }, [ listing.category ]);
   return (
     <Container>
-      <div className="max-w-screen-lg mx-auto">
+      <div className="max-w-screen-lg mx-auto pt-20">
         <div className="flex flex-col gap-1">
           <ListingHead
             data={ listing }

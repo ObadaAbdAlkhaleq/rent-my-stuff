@@ -9,6 +9,7 @@ import { format } from "date-fns";
 import { BiStar } from "react-icons/bi";
 import { BsFillStarFill } from "react-icons/bs";
 import { AiFillFlag } from "react-icons/ai";
+import { useRouter } from "next/navigation";
 
 interface ListingReservationProps {
   price: number;
@@ -25,6 +26,7 @@ interface ListingReservationProps {
 const ListingReservation: React.FC<ListingReservationProps> = ({
   price, totalPrice, onChangeDate, dateRange, onSubmit, disabled, disabledDates, reviewsAmount, averageRating
 }) => {
+  const router = useRouter();
   const [ isClicked, setIsClicked ] = useState(false);
   const [ isCleared, setIsCleared ] = useState(false);
   const openCalendar = useCallback(() => {
@@ -150,6 +152,12 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
             label="Reserve"
             onClick={ onSubmit }
           />
+          <div className="text-xs text-gray-500">
+            By Reserving this item, I agree to the&nbsp;
+            <span className="text-blue-500 underline hover:cursor-pointer" onClick={ () => router.push('/tos') }>Terms and Conditions</span>,&nbsp;
+            <span className="text-blue-500 underline hover:cursor-pointer" onClick={ () => router.push('/tos') }>Terms of Use</span>, and the&nbsp;
+            <span className="text-blue-500 underline hover:cursor-pointer" onClick={ () => router.push('/tos') }>Reservation Policies</span> of RentMyStuff.
+          </div>
           {/* TODO: reserve now functionality */ }
           {/* <Button
             disabled={ disabled }
