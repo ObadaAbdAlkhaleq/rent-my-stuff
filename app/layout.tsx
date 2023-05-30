@@ -12,6 +12,7 @@ import SearchModal from './Components/Modals/SearchModal';
 import Providers from './providers';
 import HeroSection from './Components/HeroSection';
 import Categories from './Components/navbar/Categories';
+import Footer from './Components/Footer';
 
 
 export const metadata = {
@@ -56,6 +57,7 @@ export default async function RootLayout({
             </div>
           </div>
         </Providers>
+        <Footer />
       </body>
     </html>
   );

@@ -42,12 +42,12 @@ const ToSPage = () => {
               Users can cancel their reservation free of charge if the cancellation is made within a specified time frame, such as 3 days before the scheduled pickup date. Cancellations made after this period may be subject to a cancellation fee.
             </p>
             <p className="font-sans mb-4">
-              In the event that the user needs to cancel due to unforeseen circumstances or emergencies, they are encouraged to contact the platform's customer support for assistance and to discuss any possible options or alternatives.
+              In the event that the user needs to cancel due to unforeseen circumstances or emergencies, they are encouraged to contact the platform&apos;s customer support for assistance and to discuss any possible options or alternatives.
             </p>
 
             <h2 className="font-sans text-2xl font-semibold mb-4">Terms of Use:</h2>
             <p className="font-sans mb-4">
-              Users must carefully read and agree to the platform's terms of use before accessing or using the services provided. The terms of use outline the rights and responsibilities of both users and the platform.
+              Users must carefully read and agree to the platform&apos;s terms of use before accessing or using the services provided. The terms of use outline the rights and responsibilities of both users and the platform.
             </p>
             <p className="font-sans mb-4">
               Users are expected to comply with all applicable local laws and regulations while using the platform and renting items. Any violation of the terms of use or misuse of the platform may result in account suspension or termination.

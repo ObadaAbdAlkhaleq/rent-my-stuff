@@ -91,10 +91,7 @@ model Review {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   userId String @db.ObjectId
   listingId String @db.ObjectId
-<<<<<<< HEAD
   authorName String?
-=======
->>>>>>> 1e12bf267db1ed7c37217e3196614b29f20be022
   rating Float
   comment String
   createdAt DateTime @default(now())

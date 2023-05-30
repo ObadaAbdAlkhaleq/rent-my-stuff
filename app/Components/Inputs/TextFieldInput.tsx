@@ -5,12 +5,10 @@ import {
   FieldValues,
   FieldErrors
 } from "react-hook-form";
-import { BiDollar } from "react-icons/bi";
-
 interface TextFieldInputProps {
   id: string;
   label: string;
-  placeholder: string;
+  placeholder?: string;
   type?: string;
   disabled?: boolean;
   required?: boolean;
