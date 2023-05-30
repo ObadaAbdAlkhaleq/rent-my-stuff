@@ -10,6 +10,8 @@ import getCurrentUser from './actions/getCurrentUser';
 import ClientOnly from './Components/ClientOnly';
 import SearchModal from './Components/Modals/SearchModal';
 import Providers from './providers';
+import HeroSection from './Components/HeroSection';
+import Categories from './Components/navbar/Categories';
 
 
 export const metadata = {
@@ -42,8 +44,16 @@ export default async function RootLayout({
           <Navbar currentUser={ currentUser } />
         </ClientOnly>
         <Providers>
-          <div className="pb-20 pt-24">
-            { children }
+          <HeroSection />
+          <div className="">
+          </div>
+          <div className="pb-20">
+            <div className="top-[4.525rem] bg-white shadow-lg sticky z-50">
+              <Categories />
+            </div>
+            <div className="">
+              { children }
+            </div>
           </div>
         </Providers>
       </body>
